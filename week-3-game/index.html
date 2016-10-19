@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Psychic Game!</title>
+</head>
+<body>
+<h1>The Psychic Game</h1>
+
+  <p>Wins: <span id="wins"></span></p>
+  <p>Losses: <span id="losses"></span></p>
+  <p>Guesses left: <span id="guessesLeft"></span></p>
+  <p>Users guess: <span id="guess"></span></p>
+
+<script type="text/javascript">
+
+//computer picks a random letter
+//player has to guess what letter the computer will pick
+//player gets one right, point goes up
+//game ends when 5 points is reached
+
+    // happens as soon as page loads
+    var options = ["a","b","c","d","e","f","g","h","i","j", "k", "l","m", "n", "o", "p", "q", "r", "s", "t", "u","v", "w", "x", "y","z"];
+    var wins = 0;
+    var losses = 0;
+    var guessLeft = 9;
+    var computerGuess = options[Math.floor(Math.random()*options.length)];
+
+    var divguess = document.getElementById("computerGuess");
+
+    var divwins = document.getElementById("wins");
+
+    var divlosses =  document.getElementById("losses")
+
+
+
+
+    //user gusses
+    document.onkeyup = function(event) {
+        var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+
+        //computer guesses
+
+        console.log("Computer Guess " + computerGuess);
+
+        console.log("User guess " + userGuess);
+
+        document.getElementById("wins").innerHTML = wins;
+
+        document.getElementById("guess").innerHTML = userGuess;
+
+        document.getElementById("losses").innerHTML = losses;
+
+
+
+        
+        // If game is on
+          // a. On
+              // - match the character
+              //   - if match
+              //   -- wins
+              //      -- what else happens when wins
+              //   - no match
+              //   -- loses
+              //      -- what else happens when he loses
+              //
+          // b. Off
+              // do something else
+
+        // if guessesleft is > 0
+        // game is on
+        if(guessLeft > 0) {
+          //if the game is still on, try to match imput of the user with the current letter
+          computerGuess = options[Math.floor(Math.random()*options.length)];
+          if (computerGuess == userGuess){
+            // win
+                               // != different
+            //point needs to go up
+            wins++;
+            divwins.innerHTML = wins;
+            console.log("wins");
+          } else if (computerGuess != userGuess){
+            //display wrong guesses 
+            //update gusses 
+            guessLeft++;
+            console.log(guessLeft)
+
+          }
+
+
+
+        }
+        // if the game is at 0 game is off
+        else if (guessLeft == 1){
+          //either win or lose 
+             if (computerGuess == userGuess){
+            // win
+                               // != different
+            //point needs to go up
+            wins++;
+            divwins.innerHTML = wins;
+            console.log("wins");
+          } else if (computerGuess != userGuess){
+            //display wrong guesses
+             losses++;
+            divlosses.innerHTML = losses;
+            computerGuess = options[Math.floor(Math.random()*options.length)];
+            console.log("losses");
+          }
+
+        }
+      }
+</script>
+</body>
+</html>
